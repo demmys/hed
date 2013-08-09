@@ -1,8 +1,8 @@
 module Main where
 
 import System.Environment (getArgs)
-import EdOption (parseArgs)
+import EdOption (parseArgs, runOption)
 
 main = do args <- getArgs
           let options = parseArgs args
-          putStrLn $ show options
+          mapM_ runOption options
