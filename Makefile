@@ -11,5 +11,5 @@ $(TARGET): $(SOURCE)
 	$(COMPILER) -o $@ $^
 
 clean:
-	rm -f $(addsuffix .o, $basename($(SOURCE)))
-	rm -f $(addsuffix .hi, $basename($(SOURCE)))
+	rm -f $(addsuffix .o, $(basename $(SOURCE)))
+	rm -f $(addsuffix .hi, $(basename $(SOURCE)))
