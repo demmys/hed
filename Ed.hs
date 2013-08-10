@@ -26,10 +26,5 @@ parseCommand n s ns@(c:cs) =
                  'p' -> putStrLn (s !! (n - 1)) >> return n
                  '=' -> putStrLn (show n) >> return n
                  otherwise -> putStrLn "?" >> return n
-{-
-parseCommand _ h "q" = hClose h >> exitSuccess
-parseCommand n _ ".=" = putStrLn (show n) >> return n
-parseCommand n _ _ = putStrLn "?" >> return n
--}
 
 isDigital = and . map isDigit
