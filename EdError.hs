@@ -1,6 +1,6 @@
 module EdError (EdError(..), edError) where
 
-import System.IO
+import System.IO (stderr, hPutStrLn)
 import System.Exit (exitFailure)
 
 data EdError = NO_INPUT_FILE

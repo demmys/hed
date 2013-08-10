@@ -1,10 +1,10 @@
 module EdExecute (execute) where
 
+import System.IO (IOMode(ReadWriteMode), putStrLn, openFile, hGetContents)
 import System.Exit (exitSuccess)
-import System.IO
-import Data.List (sort)
+import Ed (ed)
 import EdOption (Option(..))
-import EdError (EdError(..), edError)
+import EdError (EdError(NO_INPUT_FILE), edError)
 
 
 execute :: [Option] -> IO ()
@@ -35,16 +35,3 @@ edVersion = (putStrLn $ "hed\n"
                         ++ " -- line text editor implemented in Haskell\n"
                         ++ "version 0.0.1")
             >> exitSuccess
-
-
-ed :: String -> Handle -> IO ()
-ed p h = do putStr p
-            hFlush stdout
-            cmd <- getLine
-            parseCommand h cmd
-            ed p h
-
-
-parseCommand :: Handle -> String -> IO ()
-parseCommand _ "q" = exitSuccess
-parseCommand _ _ = do putStrLn "?"

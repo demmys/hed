@@ -1,6 +1,5 @@
 module EdOption (Option(..), parseArgs) where
 
-import System.IO
 import EdError (EdError(ILLIGAL_OPTION))
 
 data Option = OHelp
