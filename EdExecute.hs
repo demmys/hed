@@ -18,9 +18,9 @@ execute es = exe es ""
                                          >> exitSuccess
                               OPrompt p' -> exe es' p'
                               OFile f -> do h <- openFile f ReadWriteMode
-                                            str <- hGetContents h
-                                            putStrLn $ show (length str)
-                                            ed p h
+                                            s <- hGetContents h
+                                            putStrLn $ show (length s)
+                                            ed p (lines s)
 
 
 edHelp = (putStrLn $ "Usage: ed [options] file\n"
