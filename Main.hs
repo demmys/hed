@@ -1,8 +1,9 @@
 module Main where
 
 import System.Environment (getArgs)
-import EdOption (parseArgs, runOption)
+import EdOption (parseArgs)
+import EdExecute (execute)
 
 main = do args <- getArgs
           let options = parseArgs args
-          mapM_ runOption options
+          execute options
