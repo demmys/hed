@@ -1,6 +1,6 @@
 module EdExecute (execute) where
 
-import System.IO (IOMode(ReadWriteMode), putStrLn, openFile, hGetContents)
+import System.IO (putStrLn)
 import System.Exit (exitSuccess)
 import Ed (ed)
 import EdOption (Option(..))
@@ -17,10 +17,7 @@ execute es = exe es ""
                               OScript -> putStrLn "OScript running"
                                          >> exitSuccess
                               OPrompt p' -> exe es' p'
-                              OFile f -> do h <- openFile f ReadWriteMode
-                                            s <- hGetContents h
-                                            putStrLn $ show (length s)
-                                            ed p (lines s)
+                              OFile f -> ed f p
 
 
 edHelp = (putStrLn $ "Usage: ed [options] file\n"
