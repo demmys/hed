@@ -34,11 +34,6 @@ setBuffer :: EdEnvironment -> Buffer -> EdEnvironment
 setBuffer (EdEnvironment f b n) b' = EdEnvironment f b' n
 
 
--- TODO コマンド型配列を適用
-apply :: EdEnvironment -> EdCommand -> (EdEnvironment, [String])
-apply e c = undefined
-
-
 ed :: FilePath -> String -> IO ()
 ed f p = do contents <- readFile f
             let buf = lines contents
@@ -52,6 +47,12 @@ ed f p = do contents <- readFile f
                        run p e'
 
 
+--TODO コマンド文字列を適切なコマンド型配列に変換
+-- 不正なコマンド型配列になる場合はエラー
+parseCommand :: String -> [EdCommand]
+parseCommand cs = undefined
+
+
 applyCommand :: EdEnvironment -> [EdCommand] -> IO EdEnvironment
 applyCommand e [] = return e
 applyCommand e (c:cs) = let (e', ls) = apply e c
@@ -60,10 +61,9 @@ applyCommand e (c:cs) = let (e', ls) = apply e c
                                      else applyCommand (setBuffer e' ls) cs
 
 
---TODO コマンド文字列を適切なコマンド型配列に変換
--- 不正なコマンド型配列になる場合はエラー
-parseCommand :: String -> [EdCommand]
-parseCommand cs = undefined
+-- TODO コマンド型配列を適用
+apply :: EdEnvironment -> EdCommand -> (EdEnvironment, [String])
+apply e c = undefined
 
 
 isDigital = and . map isDigit
