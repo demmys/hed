@@ -5,25 +5,26 @@ import System.Exit (exitSuccess)
 import Data.Char (isDigit, digitToInt)
 
 data EdCommand = CQuit
-               | CWrite
+               | CWrite FilePath
                | CForceQuit
                | CCurrent
-               | CNumber
-               | CLine Int
+               | CLineNumber
+               | CMove Int
                | CPrint
                | CInc Int
                | CDec Int
-               | CAll
+               | CTo
                | CLast
                | CAppend
                | CInsert
                | CChange
                | CDelete
-               | CFSearch
-               | CBSearch
-               | CSubstitute
+               | CFSearch String
+               | CBSearch String
+               | CSubstitute String String [Char]
                | CUndo
-               | CShellCommand
+               | CShellCommand [String]
+               | CError
                deriving (Show, Eq)
 
 type Buffer = [String]
@@ -48,9 +49,17 @@ ed f p = do contents <- readFile f
 
 
 --TODO コマンド文字列を適切なコマンド型配列に変換
--- 不正なコマンド型配列になる場合はエラー
 parseCommand :: String -> [EdCommand]
-parseCommand cs = undefined
+parseCommand cs@(c:cs') = if isCommand c
+                              then let (cmd, rem) = encode cs
+                                   in cmd : parseCommand rem
+                              else [CError]
+
+encode :: String -> (EdCommand, String)
+encode cs = undefined
+
+isCommand :: Char -> Bool
+isCommand = flip elem "qwQ.=123456789p+-,$aicd/?su!"
 
 
 applyCommand :: EdEnvironment -> [EdCommand] -> IO EdEnvironment

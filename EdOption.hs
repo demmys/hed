@@ -13,8 +13,8 @@ data Option = OHelp
 
 parseArgs :: [String] -> [Option]
 parseArgs [] = []
-parseArgs xs = let (option, remains) = getOption xs
-                   in option : parseArgs remains
+parseArgs xs = let (opt, rem) = getOption xs
+                   in opt : parseArgs rem
 
 
 getOption :: [String] -> (Option, [String])
