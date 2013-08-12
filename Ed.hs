@@ -17,8 +17,8 @@ setBuffer (EdEnvironment f b n) b' = EdEnvironment f b' n
 
 ed :: FilePath -> String -> IO ()
 ed f p = do contents <- readFile f
+            putStrLn $ show (length contents)
             let buf = lines contents
-            putStrLn $ show (length buf)
             run p $ EdEnvironment f buf 1
     where run p e = do putStr p
                        hFlush stdout
