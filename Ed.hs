@@ -48,13 +48,13 @@ ed f p = do contents <- readFile f
                        run p e'
 
 
---TODO コマンド文字列を適切なコマンド型配列に変換
 parseCommand :: String -> [EdCommand]
 parseCommand cs@(c:cs') = if isCommand c
                               then let (cmd, rem) = encode cs
                                    in cmd : parseCommand rem
                               else [CError]
 
+--TODO コマンド文字列を適切なコマンド型配列に変換
 encode :: String -> (EdCommand, String)
 encode cs = undefined
 
@@ -64,14 +64,14 @@ isCommand = flip elem "qwQ.=123456789p+-,$aicd/?su!"
 
 applyCommand :: EdEnvironment -> [EdCommand] -> IO EdEnvironment
 applyCommand e [] = return e
-applyCommand e (c:cs) = let (e', ls) = apply e c
-                              in if null ls
-                                     then return e'
-                                     else applyCommand (setBuffer e' ls) cs
+applyCommand e (c:cs) = do (e', ls) <- apply e c
+                           if null ls
+                               then return e'
+                               else applyCommand (setBuffer e' ls) cs
 
 
 -- TODO コマンド型配列を適用
-apply :: EdEnvironment -> EdCommand -> (EdEnvironment, [String])
+apply :: EdEnvironment -> EdCommand -> IO (EdEnvironment, [String])
 apply e c = undefined
 
 
