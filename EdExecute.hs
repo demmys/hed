@@ -3,11 +3,11 @@ module EdExecute (execute) where
 import System.IO (putStrLn)
 import System.Exit (exitSuccess)
 import Ed (ed)
-import EdOption (Option(..))
+import EdOption (EdOption(..))
 import EdError (EdError(NO_INPUT_FILE), edError)
 
 
-execute :: [Option] -> IO ()
+execute :: [EdOption] -> IO ()
 execute [] = edError NO_INPUT_FILE ""
 execute es = exe es ""
     where exe (e:es') p = case e of

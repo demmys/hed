@@ -1,23 +1,23 @@
-module EdOption (Option(..), parseArgs) where
+module EdOption (EdOption(..), parseArgs) where
 
 import EdError (EdError(ILLIGAL_OPTION))
 
-data Option = OHelp
-            | OVersion
-            | OScript
-            | OPrompt String
-            | OFile String
-            | OError EdError String
-            deriving (Show, Eq)
+data EdOption = OHelp
+              | OVersion
+              | OScript
+              | OPrompt String
+              | OFile String
+              | OError EdError String
+              deriving (Show, Eq)
 
 
-parseArgs :: [String] -> [Option]
+parseArgs :: [String] -> [EdOption]
 parseArgs [] = []
 parseArgs xs = let (opt, rem) = getOption xs
                    in opt : parseArgs rem
 
 
-getOption :: [String] -> (Option, [String])
+getOption :: [String] -> (EdOption, [String])
 getOption xs@(x:xs') = if isOption x
                            then encode xs
                            else (OFile x, xs')
@@ -29,7 +29,7 @@ isOption (c:cs) = if c == '-'
                       else False
 
 
-encode :: [String] -> (Option, [String])
+encode :: [String] -> (EdOption, [String])
 encode (x:xs) = case x of
                     "-h" -> (OHelp, xs)
                     "-v" -> (OVersion, xs)

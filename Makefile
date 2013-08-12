@@ -1,7 +1,7 @@
 COMPILER = ghc
 
 TARGET = ed
-SOURCE = Main.hs Ed.hs EdOption.hs EdExecute.hs EdError.hs
+SOURCE = Main.hs Ed.hs EdCommand.hs EdOption.hs EdExecute.hs EdError.hs
 
 .PHONY: all clean
 
